@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .temperature {
+            font-size: 2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nhiệt độ hiện tại:</h1>
+    <div class="temperature" id="temperature">Đang tải...</div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB2w0FZFA5WcRVphAYVTwhHRnXqhxdn4HM",
+            authDomain: "hahuynam16122024.firebaseapp.com",
+            databaseURL: "https://hahuynam16122024-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "hahuynam16122024",
+            storageBucket: "hahuynam16122024.firebasestorage.app",
+            messagingSenderId: "903576852556",
+            appId: "1:903576852556:web:3c69e837dd06df737cfce9",
+            measurementId: "G-J4WC3Y9BTX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Reference to the temperature data in the database
+        const tempRef = ref(database, 'temperatures');
+
+        // Listen for changes in the temperature data
+        onValue(tempRef, (snapshot) => {
+            const temperatureData = snapshot.val();
+            const latestTemperature = Object.values(temperatureData).pop().temperature;
+            document.getElementById('temperature').innerText = `${latestTemperature.toFixed(2)} °C`;
+        });
+    </script>
+</body>
+</html>
