@@ -11,4 +11,4 @@ He thong IoT
 # Website hiển thị nhiệt độ bằng framework Flask
 # Ảnh kết quả
 ![image](https://github.com/user-attachments/assets/88fd9931-b505-47c3-b74d-7bc94968672c)
-```python
+# Dữ liệu nhiệt độ được "giả lập" bằng sử dụng random để sinh giá trị temporature ngẫu nhiên
