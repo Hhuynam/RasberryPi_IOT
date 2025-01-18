@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MQTT Message Sender</title>
+    <script>
+        function sendMessage() {
+            var message = document.getElementById("message").value;
+
+            fetch('/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ "message": message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Message sent successfully!");
+                } else {
+                    alert("Failed to send message: " + data.error);
+                }
+            })
+            .catch(error => {
+                alert("Error sending message: " + error);
+            });
+        }
+
+        function updateTime() {
+            var currentDateTime = new Date();
+            var timeString = currentDateTime.toLocaleString();
+            document.getElementById("timeLabel").innerText = "Current Time: " + timeString;
+        }
+
+        setInterval(updateTime, 1000); // Update every second
+    </script>
+</head>
+<body>
+    <h1>Send Message to MQTT Broker</h1>
+
+    <!-- Display Current Time -->
+    <label id="timeLabel"></label><br><br>
+
+    <!-- Display Data from the third data field -->
+    <label id="dataLabel">Data: Loading...</label><br><br>
+
+    <!-- Input Field for User Message -->
+    <label for="message">Enter your message:</label>
+    <input type="text" id="message" name="message" placeholder="Enter message..."><br><br>
+
+    <!-- Button to Send Message -->
+    <button onclick="sendMessage()">Send Message</button>
+
+    <script>
+        // Simulate fetching 'data' from an external source, such as an MQTT message
+        function fetchData() {
+            // In real implementation, you would get this data from your server or MQTT
+            var data = "Sample Data from Group 3"; // Placeholder data
+            document.getElementById("dataLabel").innerText = "Data: " + data;
+        }
+
+        fetchData(); // Call the function to display data
+    </script>
+</body>
+</html>
